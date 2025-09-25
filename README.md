@@ -4,3 +4,4 @@
 - added Intellij Idea environment variables for database sources link, user credentials etc.
 - added base model for common model properties
 - added flyway migration
+- added movies and genres many-to-many relationship with Basic Many-to-Many join table
