@@ -5,3 +5,5 @@
 - added base model for common model properties
 - added flyway migration
 - added movies and genres many-to-many relationship with Basic Many-to-Many join table
+- added daily active movie show time slot allocation with many to one relationship
+- 
