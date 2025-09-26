@@ -22,4 +22,7 @@ public class DayTimeSlot extends BaseModel{
     @ManyToOne
     @JoinColumn(name = "time_slot_id", nullable = false)
     private TimeSlot timeSlot;
+
+    @OneToMany(mappedBy = "dayTimeSlot")
+    private List<ShowTime> showTimes = new ArrayList<>();
 }

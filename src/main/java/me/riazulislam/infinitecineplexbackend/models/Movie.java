@@ -38,4 +38,7 @@ public class Movie extends BaseModel {
             inverseJoinColumns = @JoinColumn(name = "genre_id")
     )
     private List<Genre> genres = new ArrayList<>();
+
+    @OneToMany(mappedBy = "movies")
+    private List<ShowTime> movieShowTime = new ArrayList<>();
 }
