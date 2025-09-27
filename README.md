@@ -4,3 +4,7 @@
 - added Intellij Idea environment variables for database sources link, user credentials etc.
 - added base model for common model properties
 - added flyway migration
+- added movies and genres many-to-many relationship with Basic Many-to-Many join table
+- added daily active movie show time slot allocation with many to one relationship
+- added `user` table
+- added `show_time` table relation with movie id and day time slot id
