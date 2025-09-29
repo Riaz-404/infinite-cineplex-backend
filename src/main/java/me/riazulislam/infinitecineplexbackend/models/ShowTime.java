@@ -5,6 +5,8 @@ import lombok.*;
 import me.riazulislam.infinitecineplexbackend.enums.ShowStatusEnum;
 
 import java.time.Instant;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
@@ -15,12 +17,12 @@ import java.time.Instant;
 @Table(name = "show_times")
 public class ShowTime extends BaseModel {
     @Enumerated(EnumType.STRING)
-    @Column(name = "status", nullable = true)
+    @Column(name = "status", nullable = false)
     private ShowStatusEnum showStatus = ShowStatusEnum.Scheduled;
 
     @ManyToOne
     @JoinColumn(name = "movie_id", nullable = false)
-    private Movie movies;
+    private Movie movie;
 
     @ManyToOne
     @JoinColumn(name = "slot_id", nullable = false)
@@ -28,4 +30,10 @@ public class ShowTime extends BaseModel {
 
     @Column(name = "show_date", nullable = false)
     private Instant showDate;
+
+    @OneToMany(mappedBy = "showTime")
+    private List<Reservation> reservations = new ArrayList<>();
+
+    @OneToMany(mappedBy = "showTime")
+    private List<ReservationSeat> reservationSeats = new ArrayList<>();
 }

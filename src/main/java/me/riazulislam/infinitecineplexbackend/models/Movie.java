@@ -39,6 +39,6 @@ public class Movie extends BaseModel {
     )
     private List<Genre> genres = new ArrayList<>();
 
-    @OneToMany(mappedBy = "movies")
-    private List<ShowTime> movieShowTime = new ArrayList<>();
+    @OneToMany(mappedBy = "movie")
+    private List<ShowTime> showTimes = new ArrayList<>();
 }
