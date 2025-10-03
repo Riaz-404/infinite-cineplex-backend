@@ -9,9 +9,9 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/health")
 public class HealthController {
-    @GetMapping("/health")
+    @GetMapping
     private ResponseEntity<?> getHealthStatus() {
         return ResponseEntity.status(HttpStatus.OK).body(Map.of("message", "API is working"));
     }

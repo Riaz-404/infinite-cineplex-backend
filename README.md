@@ -19,3 +19,4 @@
 - implemented stateless session
 - implemented request permission based on request type on a particular path
 - implement user authentication with signup process, including email validation and password encoding
+- implement genre creation dto, dto mapper/converter
