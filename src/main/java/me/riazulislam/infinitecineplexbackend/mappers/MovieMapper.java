@@ -5,10 +5,12 @@ import me.riazulislam.infinitecineplexbackend.dtos.CreateMovieDTO;
 import me.riazulislam.infinitecineplexbackend.models.Genre;
 import me.riazulislam.infinitecineplexbackend.models.Movie;
 import me.riazulislam.infinitecineplexbackend.services.GenreService;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Component
 @AllArgsConstructor
 public class MovieMapper {
     private final GenreService genreService;

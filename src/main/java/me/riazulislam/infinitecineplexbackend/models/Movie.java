@@ -1,5 +1,6 @@
 package me.riazulislam.infinitecineplexbackend.models;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -37,8 +38,10 @@ public class Movie extends BaseModel {
             joinColumns = @JoinColumn(name = "movie_id"),
             inverseJoinColumns = @JoinColumn(name = "genre_id")
     )
+    @JsonManagedReference
     private List<Genre> genres = new ArrayList<>();
 
     @OneToMany(mappedBy = "movie")
+    @JsonManagedReference
     private List<ShowTime> showTimes = new ArrayList<>();
 }

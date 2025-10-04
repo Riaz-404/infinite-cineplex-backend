@@ -34,14 +34,6 @@ public class CreateMovieDTO {
 
     private List<Long> genres;
 
-//    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-//    @JoinTable(
-//            name = "movie_genres",
-//            joinColumns = @JoinColumn(name = "movie_id"),
-//            inverseJoinColumns = @JoinColumn(name = "genre_id")
-//    )
-//    private List<Genre> genres = new ArrayList<>();
-//
 //    @OneToMany(mappedBy = "movie")
 //    private List<ShowTime> showTimes = new ArrayList<>();
 }

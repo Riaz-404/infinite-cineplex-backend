@@ -1,5 +1,6 @@
 package me.riazulislam.infinitecineplexbackend.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 import me.riazulislam.infinitecineplexbackend.enums.ShowStatusEnum;
@@ -22,6 +23,7 @@ public class ShowTime extends BaseModel {
 
     @ManyToOne
     @JoinColumn(name = "movie_id", nullable = false)
+    @JsonBackReference
     private Movie movie;
 
     @ManyToOne
