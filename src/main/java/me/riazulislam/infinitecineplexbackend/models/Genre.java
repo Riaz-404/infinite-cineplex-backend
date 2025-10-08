@@ -1,5 +1,6 @@
 package me.riazulislam.infinitecineplexbackend.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToMany;
@@ -20,5 +21,6 @@ public class Genre extends BaseModel {
     private String name;
 
     @ManyToMany(mappedBy = "genres")
+    @JsonBackReference
     private List<Movie> movies;
 }

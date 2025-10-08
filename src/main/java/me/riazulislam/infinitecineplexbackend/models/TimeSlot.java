@@ -7,7 +7,7 @@ import jakarta.persistence.Table;
 import lombok.*;
 
 import java.time.Duration;
-import java.time.LocalDateTime;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,7 +23,7 @@ public class TimeSlot extends BaseModel{
     private String name;
 
     @Column(name = "start_time", nullable = false)
-    private LocalDateTime startTime;
+    private Instant startTime;
 
     @Column(nullable = false)
     private Duration duration;

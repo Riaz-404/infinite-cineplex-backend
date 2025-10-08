@@ -8,3 +8,21 @@
 - added daily active movie show time slot allocation with many to one relationship
 - added `user` table
 - added `show_time` table relation with movie id and day time slot id
+- added spring security
+- implemented user signup process with email, password and other fields validation
+- implemented user email check for correct formatted email, and unique email
+- implemented user signup process as transactional process
+- implemented user create and response DTO
+- implemented user password encoding
+- implemented api health status route
+- implemented spring security filtering
+- implemented stateless session
+- implemented request permission based on request type on a particular path
+- implement user authentication with signup process, including email validation and password encoding
+- implement genre creation dto, dto mapper/converter
+- added global exception/error handler file
+- solved json reference and back reference indefinite loop issues 
+- implemented movie create post api with proper dto and dto converter
+- added Movie, genre, show time response DTO
+- Solved `Type definition error: [simple type, class org.hibernate.proxy.pojo.bytebuddy.ByteBuddyInterceptor]` error using response DTO method
+- understand the `lazy and eager fetch` method causing reference response instead of actual object response
