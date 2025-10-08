@@ -24,6 +24,6 @@ public class MovieController {
     public ResponseEntity<?> createMovie(@Valid @RequestBody CreateMovieDTO movieDTO) {
         Movie createdMovie = movieService.createNewMovie(movieMapper.toModel(movieDTO));
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(createdMovie);
+        return ResponseEntity.status(HttpStatus.CREATED).body(movieMapper.toDTO(createdMovie));
     }
 }

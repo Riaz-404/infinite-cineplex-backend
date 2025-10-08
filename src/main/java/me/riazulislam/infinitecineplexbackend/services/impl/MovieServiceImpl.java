@@ -1,6 +1,7 @@
 package me.riazulislam.infinitecineplexbackend.services.impl;
 
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import me.riazulislam.infinitecineplexbackend.models.Movie;
 import me.riazulislam.infinitecineplexbackend.repositories.MovieRepository;
 import me.riazulislam.infinitecineplexbackend.services.MovieService;

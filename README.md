@@ -23,3 +23,6 @@
 - added global exception/error handler file
 - solved json reference and back reference indefinite loop issues 
 - implemented movie create post api with proper dto and dto converter
+- added Movie, genre, show time response DTO
+- Solved `Type definition error: [simple type, class org.hibernate.proxy.pojo.bytebuddy.ByteBuddyInterceptor]` error using response DTO method
+- understand the `lazy and eager fetch` method causing reference response instead of actual object response
