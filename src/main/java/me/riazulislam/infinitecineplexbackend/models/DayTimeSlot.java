@@ -26,5 +26,6 @@ public class DayTimeSlot extends BaseModel{
     private TimeSlot timeSlot;
 
     @OneToMany(mappedBy = "dayTimeSlot")
+    @JsonManagedReference
     private List<ShowTime> showTimes = new ArrayList<>();
 }

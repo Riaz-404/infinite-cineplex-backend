@@ -1,8 +1,13 @@
 package me.riazulislam.infinitecineplexbackend.dtos;
 
 import lombok.*;
+import me.riazulislam.infinitecineplexbackend.models.DayTimeSlot;
+import me.riazulislam.infinitecineplexbackend.models.Reservation;
+import me.riazulislam.infinitecineplexbackend.models.ReservationSeat;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @Setter
@@ -11,7 +16,10 @@ import java.time.LocalDateTime;
 @Builder
 public class ShowTimeDTO {
     private Long id;
-    private LocalDateTime startTime;
-    private LocalDateTime endTime;
-    private Double price;
+    private MovieDTO movie;
+    private String status;
+    private DayTimeSlot timeSlot;
+    private LocalDate showDate;
+    private List<Reservation> reservations;
+    private List<ReservationSeat> reservationSeats;
 }

@@ -28,3 +28,6 @@
 - understand the `lazy and eager fetch` method causing reference response instead of actual object response
 - added time slot DTO, mapper, controller, service and repository
 - added day time slot DTO, mapper, controller, service and repository
+- implemented show time api with DTO and mapper
+- implemented show time controller, service and repository
+- handled show time uniqueness with movie, time slot and date
