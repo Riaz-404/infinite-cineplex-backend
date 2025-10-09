@@ -1,5 +1,6 @@
 package me.riazulislam.infinitecineplexbackend.models;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 import me.riazulislam.infinitecineplexbackend.enums.DaysEnum;
@@ -21,6 +22,7 @@ public class DayTimeSlot extends BaseModel{
 
     @ManyToOne
     @JoinColumn(name = "time_slot_id", nullable = false)
+    @JsonManagedReference
     private TimeSlot timeSlot;
 
     @OneToMany(mappedBy = "dayTimeSlot")
