@@ -1,5 +1,6 @@
 package me.riazulislam.infinitecineplexbackend.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -32,5 +33,6 @@ public class TimeSlot extends BaseModel{
     private Duration duration;
 
     @OneToMany(mappedBy = "timeSlot", orphanRemoval = false)
+    @JsonBackReference
     private List<DayTimeSlot> dayTimeSlots = new ArrayList<>();
 }

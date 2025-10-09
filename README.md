@@ -27,3 +27,4 @@
 - Solved `Type definition error: [simple type, class org.hibernate.proxy.pojo.bytebuddy.ByteBuddyInterceptor]` error using response DTO method
 - understand the `lazy and eager fetch` method causing reference response instead of actual object response
 - added time slot DTO, mapper, controller, service and repository
+- added day time slot DTO, mapper, controller, service and repository
