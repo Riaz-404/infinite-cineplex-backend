@@ -45,7 +45,6 @@ public class ShowTimeMapper {
                 .timeSlot(showTime.getDayTimeSlot())
                 .showDate(showTime.getShowDate())
                 .reservations(showTime.getReservations())
-                .reservationSeats(showTime.getReservationSeats())
                 .build();
     }
 }

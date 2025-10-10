@@ -31,3 +31,6 @@
 - implemented show time api with DTO and mapper
 - implemented show time controller, service and repository
 - handled show time uniqueness with movie, time slot and date
+- implemented seat new table with reservation_seats as many-to-many table
+- implemented necessary migration to change database and model schemas
+- implemented Seats DTO, mapper, controller, service and repository

@@ -36,8 +36,10 @@ public class ShowTime extends BaseModel {
     private LocalDate showDate;
 
     @OneToMany(mappedBy = "showTime")
+    @JsonBackReference
     private List<Reservation> reservations = new ArrayList<>();
 
-    @OneToMany(mappedBy = "showTime")
-    private List<ReservationSeat> reservationSeats = new ArrayList<>();
+//    @OneToMany(mappedBy = "showTime")
+//    @JsonBackReference
+//    private List<ReservationSeat> reservationSeats = new ArrayList<>();
 }

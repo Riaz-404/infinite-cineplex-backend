@@ -1,5 +1,6 @@
 package me.riazulislam.infinitecineplexbackend.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 import me.riazulislam.infinitecineplexbackend.enums.RoleEnum;
@@ -31,5 +32,6 @@ public class User extends BaseModel{
     private RoleEnum role = RoleEnum.USER;
 
     @OneToMany(mappedBy = "user")
+    @JsonBackReference
     private List<Reservation> movieReservations = new ArrayList<>();
 }
