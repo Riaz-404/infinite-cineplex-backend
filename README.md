@@ -34,3 +34,6 @@
 - implemented seat new table with reservation_seats as many-to-many table
 - implemented necessary migration to change database and model schemas
 - implemented Seats DTO, mapper, controller, service and repository
+- implemented Reservation DTO, mapper, controller, service and repository
+- handled unique booking of a seat of any particular show
+- handled restricting booking of damaged or inactive seats

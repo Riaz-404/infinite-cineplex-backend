@@ -1,6 +1,5 @@
 package me.riazulislam.infinitecineplexbackend.models;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
@@ -25,10 +24,6 @@ public class Reservation extends BaseModel{
     @JoinColumn(name = "user_id", nullable = false)
     @JsonManagedReference
     private User user;
-
-//    @OneToMany(mappedBy = "reservation", cascade = CascadeType.ALL, orphanRemoval = true)
-//    @JsonBackReference
-//    private List<ReservationSeat> reservationSeats = new ArrayList<>();
 
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(
