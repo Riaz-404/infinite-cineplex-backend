@@ -1,8 +1,6 @@
 package me.riazulislam.infinitecineplexbackend.dtos;
 
 import lombok.*;
-import me.riazulislam.infinitecineplexbackend.models.DayTimeSlot;
-import me.riazulislam.infinitecineplexbackend.models.Reservation;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -16,7 +14,7 @@ public class ShowTimeDTO {
     private Long id;
     private MovieDTO movie;
     private String status;
-    private DayTimeSlot timeSlot;
+    private DayTimeSlotDTO timeSlot;
     private LocalDate showDate;
-    private List<Reservation> reservations;
+    private List<Long> reservationIds;
 }

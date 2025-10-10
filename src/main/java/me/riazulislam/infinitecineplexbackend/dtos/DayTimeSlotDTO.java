@@ -1,16 +1,15 @@
 package me.riazulislam.infinitecineplexbackend.dtos;
 
 import lombok.*;
+import me.riazulislam.infinitecineplexbackend.enums.DaysEnum;
 
 @Builder
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserDTO {
+public class DayTimeSlotDTO {
     private Long id;
-    private String email;
-    private String name;
-    private String phoneNumber;
-    private String role;
+    private DaysEnum day;
+    private TimeSlotDTO timeSlot;
 }

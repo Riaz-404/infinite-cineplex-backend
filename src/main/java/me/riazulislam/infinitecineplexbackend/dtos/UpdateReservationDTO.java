@@ -9,8 +9,8 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class ReservationDTO {
-    private ShowTimeDTO show_time;
-    private UserDTO user;
-    private List<SeatDTO> reservation_seats;
+public class UpdateReservationDTO {
+    private Long show_time_id;
+    private Long user_id;
+    private List<Long> reservation_seats_id;
 }

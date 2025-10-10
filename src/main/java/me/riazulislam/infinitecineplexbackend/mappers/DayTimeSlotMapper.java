@@ -2,24 +2,36 @@ package me.riazulislam.infinitecineplexbackend.mappers;
 
 import lombok.AllArgsConstructor;
 import me.riazulislam.infinitecineplexbackend.dtos.CreateDayTimeSlotDTO;
-import me.riazulislam.infinitecineplexbackend.dtos.CreateTimeSlotDTO;
+import me.riazulislam.infinitecineplexbackend.dtos.DayTimeSlotDTO;
 import me.riazulislam.infinitecineplexbackend.models.DayTimeSlot;
 import me.riazulislam.infinitecineplexbackend.models.TimeSlot;
 import me.riazulislam.infinitecineplexbackend.repositories.TimeSlotRepository;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
-
-import javax.management.RuntimeErrorException;
 
 @Component
 @AllArgsConstructor
 public class DayTimeSlotMapper {
+    private final TimeSlotMapper timeSlotMapper;
     private final TimeSlotRepository timeSlotRepository;
 
-    public DayTimeSlot toEntity(CreateDayTimeSlotDTO dayTimeSlotDTO) {
-        TimeSlot timeSlot = timeSlotRepository.findById(dayTimeSlotDTO.getTime_slot()).orElseThrow(()->new RuntimeException("Time slot not found"));
+    public DayTimeSlotDTO toDTO(DayTimeSlot dayTimeSlot) {
+        if (dayTimeSlot == null) {
+            return null;
+        }
+        return DayTimeSlotDTO.builder()
+                .id(dayTimeSlot.getId())
+                .day(dayTimeSlot.getDay())
+                .timeSlot(timeSlotMapper.toDTO(dayTimeSlot.getTimeSlot()))
+                .build();
+    }
+
+    public DayTimeSlot toEntity(CreateDayTimeSlotDTO dto) {
+        if (dto == null) {
+            return null;
+        }
+        TimeSlot timeSlot = timeSlotRepository.findById(dto.getTime_slot()).orElseThrow(() -> new RuntimeException("Time slot not found"));
         return DayTimeSlot.builder()
-                .day(dayTimeSlotDTO.getDay())
+                .day(dto.getDay())
                 .timeSlot(timeSlot)
                 .build();
     }
