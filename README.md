@@ -37,3 +37,11 @@
 - implemented Reservation DTO, mapper, controller, service and repository
 - handled unique booking of a seat of any particular show
 - handled restricting booking of damaged or inactive seats
+- implemented jwt utilities for stateless user authentication
+- implemented custom user details for spring security
+- implemented authentication manager for spring security
+- implemented access token and refresh token when login 
+- implemented refreshing access token with refresh token
+- implemented jwt token secret and expire time from env
+- implemented jwt config with reading properties from application properties file
+- implemented logout route for successfully logout user
