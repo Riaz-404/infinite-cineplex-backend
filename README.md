@@ -8,7 +8,21 @@
 
 A comprehensive cinema booking system backend built with Spring Boot that enables movie theater management, show scheduling, seat reservations, and user authentication with JWT-based security.
 
-## 🎯 What This Project Does
+## � Live API
+
+The API is live and accessible at:
+
+**Base URL**: `https://infinite-cineplex-backend-production.up.railway.app`
+
+**Health Check**: [https://infinite-cineplex-backend-production.up.railway.app/api/health](https://infinite-cineplex-backend-production.up.railway.app/api/health)
+
+Try it out:
+
+```bash
+curl https://infinite-cineplex-backend-production.up.railway.app/api/health
+```
+
+## �🎯 What This Project Does
 
 Infinite Cineplex Backend is a RESTful API service that provides complete functionality for managing a modern cinema complex. It handles everything from movie catalog management to seat reservations, with secure user authentication and role-based access control.
 
@@ -125,12 +139,14 @@ docker run -p 8000:8000 \
 
 ## 📖 API Usage Examples
 
+You can test these examples using either the local server (`http://localhost:8000`) or the live API (`https://infinite-cineplex-backend-production.up.railway.app`).
+
 ### Authentication
 
 **Sign Up**
 
 ```bash
-curl -X POST http://localhost:8000/api/auth/signup \
+curl -X POST https://infinite-cineplex-backend-production.up.railway.app/api/auth/signup \
   -H "Content-Type: application/json" \
   -d '{
     "email": "user@example.com",
@@ -143,7 +159,7 @@ curl -X POST http://localhost:8000/api/auth/signup \
 **Login**
 
 ```bash
-curl -X POST http://localhost:8000/api/auth/login \
+curl -X POST https://infinite-cineplex-backend-production.up.railway.app/api/auth/login \
   -H "Content-Type: application/json" \
   -d '{
     "email": "user@example.com",
@@ -164,7 +180,7 @@ Response includes an access token:
 **Create a Movie** (Admin only)
 
 ```bash
-curl -X POST http://localhost:8000/api/movies \
+curl -X POST https://infinite-cineplex-backend-production.up.railway.app/api/movies \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer YOUR_ACCESS_TOKEN" \
   -d '{
@@ -181,7 +197,7 @@ curl -X POST http://localhost:8000/api/movies \
 **Get All Movies**
 
 ```bash
-curl http://localhost:8000/api/movies
+curl https://infinite-cineplex-backend-production.up.railway.app/api/movies
 ```
 
 ### Show Times
@@ -189,7 +205,7 @@ curl http://localhost:8000/api/movies
 **Create a Show Time** (Admin only)
 
 ```bash
-curl -X POST http://localhost:8000/api/show-times \
+curl -X POST https://infinite-cineplex-backend-production.up.railway.app/api/show-times \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer YOUR_ACCESS_TOKEN" \
   -d '{
@@ -203,7 +219,7 @@ curl -X POST http://localhost:8000/api/show-times \
 **Get All Show Times**
 
 ```bash
-curl http://localhost:8000/api/show-times
+curl https://infinite-cineplex-backend-production.up.railway.app/api/show-times
 ```
 
 ### Reservations
@@ -211,7 +227,7 @@ curl http://localhost:8000/api/show-times
 **Create a Reservation**
 
 ```bash
-curl -X POST http://localhost:8000/api/reservations \
+curl -X POST https://infinite-cineplex-backend-production.up.railway.app/api/reservations \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer YOUR_ACCESS_TOKEN" \
   -d '{
@@ -224,14 +240,14 @@ curl -X POST http://localhost:8000/api/reservations \
 **Get My Reservations**
 
 ```bash
-curl http://localhost:8000/api/reservations/my-reservations \
+curl https://infinite-cineplex-backend-production.up.railway.app/api/reservations/my-reservations \
   -H "Authorization: Bearer YOUR_ACCESS_TOKEN"
 ```
 
 ### Health Check
 
 ```bash
-curl http://localhost:8000/api/health
+curl https://infinite-cineplex-backend-production.up.railway.app/api/health
 ```
 
 ## 🗄️ Database Schema
