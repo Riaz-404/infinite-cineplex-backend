@@ -45,3 +45,11 @@
 - implemented jwt token secret and expire time from env
 - implemented jwt config with reading properties from application properties file
 - implemented logout route for successfully logout user
+- implemented JWT authentication filter chain
+- implemented JWT token verify before accessing resources
+- implemented secure route by role and verified token
+- implemented user controller, service and repository
+- implemented all user can be only access by admins
+- implemented user details modification route
+- implemented user password update route
+- implemented route for fetching all the reservations of an user's
