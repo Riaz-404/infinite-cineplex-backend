@@ -6,6 +6,7 @@ import lombok.*;
 import me.riazulislam.infinitecineplexbackend.enums.ShowStatusEnum;
 
 import java.time.Instant;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,14 +29,17 @@ public class ShowTime extends BaseModel {
 
     @ManyToOne
     @JoinColumn(name = "slot_id", nullable = false)
+    @JsonBackReference
     private DayTimeSlot dayTimeSlot;
 
     @Column(name = "show_date", nullable = false)
-    private Instant showDate;
+    private LocalDate showDate;
 
     @OneToMany(mappedBy = "showTime")
+    @JsonBackReference
     private List<Reservation> reservations = new ArrayList<>();
 
-    @OneToMany(mappedBy = "showTime")
-    private List<ReservationSeat> reservationSeats = new ArrayList<>();
+//    @OneToMany(mappedBy = "showTime")
+//    @JsonBackReference
+//    private List<ReservationSeat> reservationSeats = new ArrayList<>();
 }

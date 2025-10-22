@@ -2,15 +2,17 @@ package me.riazulislam.infinitecineplexbackend.dtos;
 
 import lombok.*;
 
+import java.time.Duration;
+import java.time.LocalTime;
+
 @Builder
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserDTO {
+public class TimeSlotDTO {
     private Long id;
-    private String email;
     private String name;
-    private String phoneNumber;
-    private String role;
+    private LocalTime startTime;
+    private Duration duration;
 }

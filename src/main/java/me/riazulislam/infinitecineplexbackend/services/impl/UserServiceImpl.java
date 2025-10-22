@@ -2,6 +2,8 @@ package me.riazulislam.infinitecineplexbackend.services.impl;
 
 import lombok.AllArgsConstructor;
 import me.riazulislam.infinitecineplexbackend.dtos.CreateUserDTO;
+import me.riazulislam.infinitecineplexbackend.dtos.UpdateUserDTO;
+import me.riazulislam.infinitecineplexbackend.dtos.UpdatePasswordDTO;
 import me.riazulislam.infinitecineplexbackend.dtos.UserDTO;
 import me.riazulislam.infinitecineplexbackend.enums.RoleEnum;
 import me.riazulislam.infinitecineplexbackend.models.User;
@@ -13,6 +15,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -63,5 +68,94 @@ public class UserServiceImpl implements UserService {
                 .build();
 
         return createdUserDTO;
+    }
+
+    @Override
+    public List<UserDTO> getAllUsers() {
+        List<User> users = userRepository.findAll();
+        return users.stream()
+                .map(this::convertToDTO)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public UserDTO getUserById(Long id) {
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found with id: " + id));
+        return convertToDTO(user);
+    }
+
+    @Override
+    @Transactional
+    public UserDTO updateUser(Long id, UpdateUserDTO updateUserDTO) {
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found with id: " + id));
+
+        // Update fields only if provided
+        if (updateUserDTO.getEmail() != null && !updateUserDTO.getEmail().isEmpty()) {
+            String normalizedEmail = updateUserDTO.getEmail().trim().toLowerCase();
+
+            // Check if email is being changed and if new email already exists
+            if (!user.getEmail().equals(normalizedEmail) && userRepository.existsByEmail(normalizedEmail)) {
+                throw new ResponseStatusException(HttpStatus.CONFLICT, "Email already registered");
+            }
+            user.setEmail(normalizedEmail);
+        }
+
+        if (updateUserDTO.getPassword() != null && !updateUserDTO.getPassword().isEmpty()) {
+            String encoded = passwordEncoder.encode(updateUserDTO.getPassword());
+            user.setPassword(encoded);
+        }
+
+        if (updateUserDTO.getName() != null) {
+            user.setName(updateUserDTO.getName());
+        }
+
+        if (updateUserDTO.getPhoneNumber() != null) {
+            user.setPhoneNumber(updateUserDTO.getPhoneNumber());
+        }
+
+        try {
+            User updatedUser = userRepository.save(user);
+            return convertToDTO(updatedUser);
+        } catch (DataIntegrityViolationException ex) {
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "Email already registered");
+        }
+    }
+
+    @Override
+    @Transactional
+    public void deleteUser(Long id) {
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found with id: " + id));
+        userRepository.delete(user);
+    }
+
+    @Override
+    @Transactional
+    public void updatePassword(Long id, UpdatePasswordDTO updatePasswordDTO) {
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found with id: " + id));
+
+        // Verify old password matches
+        if (!passwordEncoder.matches(updatePasswordDTO.getOldPassword(), user.getPassword())) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Old password is incorrect");
+        }
+
+        // Update to new password
+        String encodedNewPassword = passwordEncoder.encode(updatePasswordDTO.getNewPassword());
+        user.setPassword(encodedNewPassword);
+
+        userRepository.save(user);
+    }
+
+    private UserDTO convertToDTO(User user) {
+        return UserDTO.builder()
+                .id(user.getId())
+                .email(user.getEmail())
+                .name(user.getName())
+                .phoneNumber(user.getPhoneNumber())
+                .role(user.getRole() == null ? null : user.getRole().name())
+                .build();
     }
 }

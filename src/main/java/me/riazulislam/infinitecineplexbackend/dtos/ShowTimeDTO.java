@@ -2,7 +2,8 @@ package me.riazulislam.infinitecineplexbackend.dtos;
 
 import lombok.*;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.util.List;
 
 @Getter
 @Setter
@@ -11,7 +12,9 @@ import java.time.LocalDateTime;
 @Builder
 public class ShowTimeDTO {
     private Long id;
-    private LocalDateTime startTime;
-    private LocalDateTime endTime;
-    private Double price;
+    private MovieDTO movie;
+    private String status;
+    private DayTimeSlotDTO timeSlot;
+    private LocalDate showDate;
+    private List<Long> reservationIds;
 }
