@@ -12,7 +12,7 @@ import java.util.Map;
 @RequestMapping("/api/health")
 public class HealthController {
     @GetMapping
-    private ResponseEntity<?> getHealthStatus() {
+    public ResponseEntity<?> getHealthStatus() {
         return ResponseEntity.status(HttpStatus.OK).body(Map.of("message", "API is working"));
     }
 }
