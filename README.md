@@ -8,7 +8,7 @@
 
 A comprehensive cinema booking system backend built with Spring Boot that enables movie theater management, show scheduling, seat reservations, and user authentication with JWT-based security.
 
-## � Live API
+## 🚀 Live API
 
 The API is live and accessible at:
 
@@ -22,7 +22,7 @@ Try it out:
 curl https://infinite-cineplex-backend-production.up.railway.app/api/health
 ```
 
-## �🎯 What This Project Does
+## 🎯 What This Project Does
 
 Infinite Cineplex Backend is a RESTful API service that provides complete functionality for managing a modern cinema complex. It handles everything from movie catalog management to seat reservations, with secure user authentication and role-based access control.
 
