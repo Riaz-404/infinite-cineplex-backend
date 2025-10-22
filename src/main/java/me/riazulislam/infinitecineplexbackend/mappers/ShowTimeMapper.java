@@ -41,6 +41,9 @@ public class ShowTimeMapper {
     }
 
     public ShowTimeDTO toDTO(ShowTime showTime) {
+        List<Long> reservationIds = showTime.getReservations() != null
+                ? showTime.getReservations().stream().map(Reservation::getId).collect(Collectors.toList())
+                : new ArrayList<>();
 
         return ShowTimeDTO.builder()
                 .id(showTime.getId())
@@ -48,7 +51,7 @@ public class ShowTimeMapper {
                 .status(String.valueOf(showTime.getShowStatus()))
                 .timeSlot(dayTimeSlotMapper.toDTO(showTime.getDayTimeSlot()))
                 .showDate(showTime.getShowDate())
-                .reservationIds(showTime.getReservations().stream().map(Reservation::getId).collect(Collectors.toList()))
+                .reservationIds(reservationIds)
                 .build();
     }
 
