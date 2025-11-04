@@ -8,6 +8,8 @@
 
 A comprehensive cinema booking system backend built with Spring Boot that enables movie theater management, show scheduling, seat reservations, and user authentication with JWT-based security.
 
+💡 **Project Idea**: [https://roadmap.sh/projects/movie-reservation-system](https://roadmap.sh/projects/movie-reservation-system)
+
 ## 🚀 Live API
 
 The API is live and accessible at:
