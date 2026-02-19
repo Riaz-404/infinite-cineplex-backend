@@ -14,13 +14,14 @@ A comprehensive cinema booking system backend built with Spring Boot that enable
 
 The API is live and accessible at:
 
-**Base URL**: `https://infinite-cineplex-backend-production.up.railway.app`
+**Base URL**: `https://infinite-cineplex-backend.onrender.com`
 
-**Health Check**: [https://infinite-cineplex-backend-production.up.railway.app/api](https://infinite-cineplex-backend.onrender.com/api)
+**Health Check**: [https://infinite-cineplex-backend.onrender.com/api](https://infinite-cineplex-backend.onrender.com/api)
+
 Try it out:
 
 ```bash
-curl https://infinite-cineplex-backend-production.up.railway.app/api/health
+curl https://infinite-cineplex-backend.onrender.com/api/health
 ```
 
 ## 🎯 What This Project Does
@@ -140,14 +141,14 @@ docker run -p 8000:8000 \
 
 ## 📖 API Usage Examples
 
-You can test these examples using either the local server (`http://localhost:8000`) or the live API (`https://infinite-cineplex-backend-production.up.railway.app`).
+You can test these examples using either the local server (`http://localhost:8000`) or the live API (`https://infinite-cineplex-backend.onrender.com`).
 
 ### Authentication
 
 **Sign Up**
 
 ```bash
-curl -X POST https://infinite-cineplex-backend-production.up.railway.app/api/auth/signup \
+curl -X POST https://infinite-cineplex-backend.onrender.com/api/auth/signup \
   -H "Content-Type: application/json" \
   -d '{
     "email": "user@example.com",
@@ -160,7 +161,7 @@ curl -X POST https://infinite-cineplex-backend-production.up.railway.app/api/aut
 **Login**
 
 ```bash
-curl -X POST https://infinite-cineplex-backend-production.up.railway.app/api/auth/login \
+curl -X POST https://infinite-cineplex-backend.onrender.com/api/auth/login \
   -H "Content-Type: application/json" \
   -d '{
     "email": "user@example.com",
@@ -181,7 +182,7 @@ Response includes an access token:
 **Create a Movie** (Admin only)
 
 ```bash
-curl -X POST https://infinite-cineplex-backend-production.up.railway.app/api/movies \
+curl -X POST https://infinite-cineplex-backend.onrender.com/api/movies \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer YOUR_ACCESS_TOKEN" \
   -d '{
@@ -198,7 +199,7 @@ curl -X POST https://infinite-cineplex-backend-production.up.railway.app/api/mov
 **Get All Movies**
 
 ```bash
-curl https://infinite-cineplex-backend-production.up.railway.app/api/movies
+curl https://infinite-cineplex-backend.onrender.com/api/movies
 ```
 
 ### Show Times
@@ -206,7 +207,7 @@ curl https://infinite-cineplex-backend-production.up.railway.app/api/movies
 **Create a Show Time** (Admin only)
 
 ```bash
-curl -X POST https://infinite-cineplex-backend-production.up.railway.app/api/show-times \
+curl -X POST https://infinite-cineplex-backend.onrender.com/api/show-times \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer YOUR_ACCESS_TOKEN" \
   -d '{
@@ -220,7 +221,7 @@ curl -X POST https://infinite-cineplex-backend-production.up.railway.app/api/sho
 **Get All Show Times**
 
 ```bash
-curl https://infinite-cineplex-backend-production.up.railway.app/api/show-times
+curl https://infinite-cineplex-backend.onrender.com/api/show-times
 ```
 
 ### Reservations
@@ -228,7 +229,7 @@ curl https://infinite-cineplex-backend-production.up.railway.app/api/show-times
 **Create a Reservation**
 
 ```bash
-curl -X POST https://infinite-cineplex-backend-production.up.railway.app/api/reservations \
+curl -X POST https://infinite-cineplex-backend.onrender.com/api/reservations \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer YOUR_ACCESS_TOKEN" \
   -d '{
@@ -241,14 +242,14 @@ curl -X POST https://infinite-cineplex-backend-production.up.railway.app/api/res
 **Get My Reservations**
 
 ```bash
-curl https://infinite-cineplex-backend-production.up.railway.app/api/reservations/my-reservations \
+curl https://infinite-cineplex-backend.onrender.com/api/reservations/my-reservations \
   -H "Authorization: Bearer YOUR_ACCESS_TOKEN"
 ```
 
 ### Health Check
 
 ```bash
-curl https://infinite-cineplex-backend-production.up.railway.app/api/health
+curl https://infinite-cineplex-backend.onrender.com/api/health
 ```
 
 ## 🗄️ Database Schema
