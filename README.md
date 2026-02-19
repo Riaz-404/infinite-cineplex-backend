@@ -16,8 +16,7 @@ The API is live and accessible at:
 
 **Base URL**: `https://infinite-cineplex-backend-production.up.railway.app`
 
-**Health Check**: [https://infinite-cineplex-backend-production.up.railway.app/api/health](https://infinite-cineplex-backend-production.up.railway.app/api/health)
-
+**Health Check**: [https://infinite-cineplex-backend-production.up.railway.app/api](https://infinite-cineplex-backend.onrender.com/api)
 Try it out:
 
 ```bash
