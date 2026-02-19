@@ -16,7 +16,7 @@ The API is live and accessible at:
 
 **Base URL**: `https://infinite-cineplex-backend.onrender.com`
 
-**Health Check**: [https://infinite-cineplex-backend.onrender.com/api](https://infinite-cineplex-backend.onrender.com/api)
+**Health Check**: [https://infinite-cineplex-backend.onrender.com/api/health](https://infinite-cineplex-backend.onrender.com/api/health)
 
 Try it out:
 
