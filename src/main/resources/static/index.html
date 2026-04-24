@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infinite Cineplex Backend</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --bg: #0a0f1e;
+            --surface: #111827;
+            --border: #1e2d45;
+            --accent: #00d4ff;
+            --accent2: #7c3aed;
+            --green: #10b981;
+            --text: #e2e8f0;
+            --muted: #64748b;
+            --card-bg: #0d1525;
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'Syne', sans-serif;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Animated grid background */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image:
+                linear-gradient(var(--border) 1px, transparent 1px),
+                linear-gradient(90deg, var(--border) 1px, transparent 1px);
+            background-size: 48px 48px;
+            opacity: 0.4;
+            z-index: 0;
+        }
+
+        /* Glowing orbs */
+        body::after {
+            content: '';
+            position: fixed;
+            top: -200px;
+            left: -200px;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(0, 212, 255, 0.06) 0%, transparent 70%);
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .orb2 {
+            position: fixed;
+            bottom: -200px;
+            right: -200px;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(124, 58, 237, 0.08) 0%, transparent 70%);
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .container {
+            position: relative;
+            z-index: 1;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 60px 24px 80px;
+        }
+
+        /* ── Header ── */
+        .header {
+            text-align: center;
+            margin-bottom: 56px;
+            animation: fadeUp 0.6s ease both;
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(16, 185, 129, 0.12);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            color: var(--green);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 12px;
+            padding: 5px 14px;
+            border-radius: 100px;
+            margin-bottom: 24px;
+            letter-spacing: 0.05em;
+        }
+
+        .badge::before {
+            content: '';
+            width: 7px;
+            height: 7px;
+            background: var(--green);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+            50% {
+                opacity: 0.4;
+                transform: scale(0.8);
+            }
+        }
+
+        h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: clamp(2rem, 5vw, 3.2rem);
+            font-weight: 900;
+            line-height: 1.1;
+            letter-spacing: -0.03em;
+            margin-bottom: 14px;
+        }
+
+        h1 span {
+            background: linear-gradient(135deg, var(--accent), var(--accent2));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .subtitle {
+            color: var(--muted);
+            font-size: 1rem;
+            font-weight: 400;
+            max-width: 480px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        /* ── Base URL card ── */
+        .url-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-left: 3px solid var(--accent);
+            border-radius: 12px;
+            padding: 20px 24px;
+            margin-bottom: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            flex-wrap: wrap;
+            animation: fadeUp 0.6s 0.1s ease both;
+        }
+
+        .url-section {
+            flex: 1;
+        }
+
+        .url-label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 11px;
+            color: var(--accent);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            margin-bottom: 6px;
+        }
+
+        .url-value {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1rem;
+            color: var(--text);
+            word-break: break-all;
+        }
+
+        .meta-chips {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            flex-shrink: 0;
+        }
+
+        .chip {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 11px;
+            padding: 4px 10px;
+            border-radius: 6px;
+            border: 1px solid var(--border);
+            color: var(--muted);
+        }
+
+        .chip.env {
+            color: #f59e0b;
+            border-color: rgba(245, 158, 11, 0.3);
+            background: rgba(245, 158, 11, 0.05);
+        }
+
+        .chip.ver {
+            color: var(--accent);
+            border-color: rgba(0, 212, 255, 0.3);
+            background: rgba(0, 212, 255, 0.05);
+        }
+
+        /* ── Section title ── */
+        .section-title {
+            font-size: 11px;
+            font-family: 'JetBrains Mono', monospace;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--muted);
+            margin-bottom: 16px;
+        }
+
+        /* ── Route cards ── */
+        .routes-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-bottom: 40px;
+            animation: fadeUp 0.6s 0.2s ease both;
+        }
+
+        .route-card {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 14px 18px;
+            text-decoration: none;
+            color: var(--text);
+            transition: border-color 0.2s, background 0.2s, transform 0.15s;
+            cursor: pointer;
+        }
+
+        .route-card:hover {
+            border-color: var(--accent);
+            background: rgba(0, 212, 255, 0.04);
+            transform: translateX(4px);
+        }
+
+        .route-icon {
+            font-size: 1.2rem;
+            flex-shrink: 0;
+            width: 28px;
+            text-align: center;
+        }
+
+        .route-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .route-label {
+            display: block;
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: var(--text);
+            margin-bottom: 2px;
+        }
+
+        .route-desc {
+            display: block;
+            font-size: 0.78rem;
+            color: var(--muted);
+        }
+
+        .route-path {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            color: var(--accent);
+            flex-shrink: 0;
+            background: rgba(0, 212, 255, 0.07);
+            padding: 3px 10px;
+            border-radius: 6px;
+            border: 1px solid rgba(0, 212, 255, 0.15);
+        }
+
+        /* ── External links row ── */
+        .ext-row {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-bottom: 40px;
+            animation: fadeUp 0.6s 0.3s ease both;
+        }
+
+        .ext-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 11px 20px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-size: 0.875rem;
+            font-weight: 600;
+            border: 1px solid var(--border);
+            color: var(--text);
+            background: var(--card-bg);
+            transition: border-color 0.2s, color 0.2s, background 0.2s;
+        }
+
+        .ext-btn:hover {
+            border-color: var(--accent2);
+            color: #a78bfa;
+            background: rgba(124, 58, 237, 0.06);
+        }
+
+        .ext-btn svg {
+            flex-shrink: 0;
+        }
+
+        /* ── Footer ── */
+        .footer {
+            border-top: 1px solid var(--border);
+            padding-top: 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            animation: fadeUp 0.6s 0.4s ease both;
+        }
+
+        .footer-left {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 12px;
+            color: var(--muted);
+        }
+
+        .footer-ts {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 11px;
+            color: var(--muted);
+            opacity: 0.6;
+        }
+
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(16px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 600px) {
+            .route-path {
+                display: none;
+            }
+            .url-card {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="orb2"></div>
+
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="badge" id="statusBadge">
+                <span id="statusText">RUNNING</span>
+            </div>
+            <h1><span>Infinite Cineplex Backend</span></h1>
+        </div>
+
+        <!-- Base URL Card -->
+        <div class="url-card">
+            <div class="url-section">
+                <div class="url-label">Base URL</div>
+                <div class="url-value" id="baseUrl"></div>
+            </div>
+            <div class="meta-chips">
+                <div class="chip env" id="envChip">Production</div>
+                <div class="chip ver" id="versionChip">v1.0.0</div>
+            </div>
+        </div>
+
+        <!-- Routes Section -->
+        <div class="section-title">Available Routes</div>
+        <div class="routes-grid" id="routesContainer">
+            <!-- Routes will be populated by JavaScript -->
+        </div>
+
+        <!-- CTA Buttons -->
+        <div class="ext-row">
+            <a href="#" id="githubBtn" class="ext-btn" target="_blank">
+                <span>→</span> GitHub Repository
+            </a>
+            <a href="#" id="apiDocsBtn" class="ext-btn" target="_blank">
+                <span>→</span> API Docs
+            </a>
+            <a href="#" id="healthBtn" class="ext-btn" target="_blank">
+                <span>→</span> Health Status
+            </a>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <div class="footer-left">Infinite Cineplex Backend · Spring Boot · RESTful API</div>
+            <div class="footer-ts" id="timestamp"></div>
+        </div>
+    </div>
+
+    <script>
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            const baseUrl = window.location.origin;
+
+            // Set base URL display immediately (no flicker)
+            document.getElementById('baseUrl').textContent = baseUrl;
+
+            // Detect environment
+            updateEnvironment(baseUrl);
+
+            // Set button href values
+            document.getElementById('apiDocsBtn').href = baseUrl + '/swagger-ui.html';
+            document.getElementById('healthBtn').href = baseUrl + '/api/health';
+
+            // Update timestamp in footer
+            updateTimestamp();
+
+            // Fetch and display health status
+            fetchHealthStatus(baseUrl);
+
+            // Fetch API info and populate routes
+            fetchApiInfo(baseUrl);
+        });
+
+        function updateEnvironment(baseUrl) {
+            const envChip = document.getElementById('envChip');
+            if (baseUrl.includes('localhost') || baseUrl.includes('127.0.0.1')) {
+                envChip.textContent = 'Local';
+            } else if (baseUrl.includes('onrender.com')) {
+                envChip.textContent = 'Render';
+            } else if (baseUrl.includes('railway.app')) {
+                envChip.textContent = 'Railway';
+            } else {
+                envChip.textContent = 'Production';
+            }
+        }
+
+        function updateTimestamp() {
+            const now = new Date();
+            const utcString = now.toUTCString();
+            document.getElementById('timestamp').textContent = utcString;
+
+            // Update every second
+            setTimeout(updateTimestamp, 1000);
+        }
+
+        function fetchHealthStatus(baseUrl) {
+            fetch(baseUrl + '/api/health')
+                .then(response => {
+                    if (!response.ok) throw new Error('Health check failed');
+                    return response.json();
+                })
+                .then(data => {
+                    const statusBadge = document.getElementById('statusBadge');
+                    const statusText = document.getElementById('statusText');
+                    const versionChip = document.getElementById('versionChip');
+
+                    if (data.status === 'UP' || (data.message && data.message.includes('working'))) {
+                        statusText.textContent = 'RUNNING';
+                    } else {
+                        statusText.textContent = 'DEGRADED';
+                    }
+
+                    if (data.version) {
+                        versionChip.textContent = data.version;
+                    }
+                })
+                .catch(error => {
+                    // Graceful fallback
+                    console.warn('Health check unavailable:', error);
+                });
+        }
+
+        function fetchApiInfo(baseUrl) {
+            fetch(baseUrl + '/api/info')
+                .then(response => {
+                    if (!response.ok) throw new Error('API info failed');
+                    return response.json();
+                })
+                .then(data => {
+                    // Set GitHub URL
+                    if (data.githubUrl) {
+                        document.getElementById('githubBtn').href = data.githubUrl;
+                    } else {
+                        document.getElementById('githubBtn').href = '#';
+                        document.getElementById('githubBtn').style.opacity = '0.5';
+                        document.getElementById('githubBtn').style.pointerEvents = 'none';
+                    }
+
+                    // Set API Docs URL
+                    if (data.apiDocsUrl) {
+                        document.getElementById('apiDocsBtn').href = data.apiDocsUrl;
+                    } else {
+                        document.getElementById('apiDocsBtn').href = '#';
+                        document.getElementById('apiDocsBtn').style.opacity = '0.5';
+                        document.getElementById('apiDocsBtn').style.pointerEvents = 'none';
+                    }
+
+                    // Populate routes
+                    const routes = data.routes || {};
+                    const routesContainer = document.getElementById('routesContainer');
+                    routesContainer.innerHTML = '';
+
+                    const routeConfig = [
+                        { key: 'health', name: 'Health Check', desc: 'System health status', icon: '💚' },
+                        { key: 'documentation', name: 'API Documentation', desc: 'API details documentation', icon: '📋' },
+                        { key: 'movies', name: 'Movies', desc: 'Movie management', icon: '🎬' },
+                        { key: 'show-times', name: 'Show Times', desc: 'Show times', icon: '📅' },
+                        { key: 'time-slots', name: 'time-slots', desc: 'Movie time slots', icon: '⏰' }
+                    ];
+
+                    routeConfig.forEach(config => {
+                        const url = routes[config.key];
+                        if (url) {
+                            const routeCard = document.createElement('div');
+                            routeCard.className = 'route-card';
+                            routeCard.innerHTML = `
+                                <span class="route-icon">${config.icon}</span>
+                                <div class="route-info">
+                                    <span class="route-label">${config.name}</span>
+                                    <span class="route-desc">${config.desc}</span>
+                                </div>
+                                <span class="route-path">${url.replace(baseUrl, '')}</span>
+                            `;
+                            routeCard.addEventListener('click', () => {
+                                window.open(url, '_blank');
+                            });
+                            routesContainer.appendChild(routeCard);
+                        }
+                    });
+                })
+                .catch(error => {
+                    console.warn('API info unavailable:', error);
+                });
+        }
+    </script>
+</body>
+</html>
+
